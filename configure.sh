@@ -16,7 +16,7 @@ export PREFIX=./output
 --disable-ffmpeg \
 --cc=$TOOLCHAIN/bin/arm-linux-androideabi-gcc \
 --cross-prefix=$TOOLCHAIN/bin/arm-linux-androideabi- \
---target-os=linux \
+--target-os=android \
 --arch=arm \
 --enable-cross-compile \
 --sysroot=$SYSROOT \
