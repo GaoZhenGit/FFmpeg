@@ -1,32 +1,37 @@
-export API=16
-export NDK=/home/gz/Android/android-ndk-r17c
-export SYSROOT=$NDK/platforms/android-$API/arch-arm/
+#!/bin/bash
+export NDK=/home/gz/Android/android-ndk-r14b
+export SYSROOT=$NDK/platforms/android-21/arch-arm/
 export TOOLCHAIN=$NDK/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64
+export CPU=arm
 export PREFIX=./output
-
-ADDI_CFLAGS="-I/home/gz/Documents/projects/x264/build/include"
-ADDI_LDFLAGS="-L/home/gz/Documents/projects/x264/build/lib"
-
-export PKG_CONFIG_PATH="/home/gz/Documents/projects/x264/build/lib/pkgconfig"
-
+export ADDI_CFLAGS="-marm -I/home/gz/Documents/projects/x264/build/include"
+export ADDI_LDFLAGS="-L/home/gz/Documents/projects/x264/build/lib"
 ./configure \
---prefix=$PREFIX \
---enable-shared \
---enable-static \
---disable-doc \
---disable-ffplay \
---disable-ffprobe \
---disable-symver \
---disable-ffmpeg \
---enable-gpl \
---cc=$TOOLCHAIN/bin/arm-linux-androideabi-gcc \
---cross-prefix=$TOOLCHAIN/bin/arm-linux-androideabi- \
---target-os=android \
---arch=arm \
---enable-cross-compile \
---sysroot=$SYSROOT \
---enable-libx264 \
---enable-encoder=libx264 \
---extra-cflags="$ADDI_CFLAGS -I$NDK/sysroot/usr/include/arm-linux-androideabi -isysroot $NDK/sysroot -fPIC -DANDROID -D__thumb__ -mthumb -Wfatal-errors -Wno-deprecated -mfloat-abi=softfp -marm -march=armv7-a" \
---enable-neon \
---extra-ldflags="$ADDI_LDFLAGS"
+    --prefix=$PREFIX \
+    --target-os=android \
+    --cross-prefix=$TOOLCHAIN/bin/arm-linux-androideabi- \
+    --arch=arm \
+    --sysroot=$SYSROOT \
+    --extra-cflags="-Os -fpic $ADDI_CFLAGS" \
+    --extra-ldflags="$ADDI_LDFLAGS" \
+    --cc=$TOOLCHAIN/bin/arm-linux-androideabi-gcc \
+    --nm=$TOOLCHAIN/bin/arm-linux-androideabi-nm \
+    --enable-shared \
+    --enable-runtime-cpudetect \
+    --enable-gpl \
+    --enable-small \
+    --enable-cross-compile \
+    --disable-debug \
+    --disable-static \
+    --disable-doc \
+    --disable-asm \
+    --disable-ffmpeg \
+    --disable-ffplay \
+    --disable-ffprobe \
+    --enable-postproc \
+    --enable-avdevice \
+    --disable-symver \
+    --disable-stripping \
+    --enable-libx264 \
+    --enable-encoder=libx264 \
+$ADDITIONAL_CONFIGURE_FLAG
