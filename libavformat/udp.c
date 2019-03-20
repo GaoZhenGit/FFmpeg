@@ -178,17 +178,17 @@ static int udp_join_multicast_group(int sockfd, struct sockaddr *addr,struct soc
 {
 #ifdef IP_ADD_MEMBERSHIP
     if (addr->sa_family == AF_INET) {
-        struct ip_mreq mreq;
+        // struct ip_mreq mreq;
 
-        mreq.imr_multiaddr.s_addr = ((struct sockaddr_in *)addr)->sin_addr.s_addr;
-        if (local_addr)
-            mreq.imr_interface= ((struct sockaddr_in *)local_addr)->sin_addr;
-        else
-            mreq.imr_interface.s_addr= INADDR_ANY;
-        if (setsockopt(sockfd, IPPROTO_IP, IP_ADD_MEMBERSHIP, (const void *)&mreq, sizeof(mreq)) < 0) {
-            ff_log_net_error(NULL, AV_LOG_ERROR, "setsockopt(IP_ADD_MEMBERSHIP)");
-            return -1;
-        }
+        // mreq.imr_multiaddr.s_addr = ((struct sockaddr_in *)addr)->sin_addr.s_addr;
+        // if (local_addr)
+        //     mreq.imr_interface= ((struct sockaddr_in *)local_addr)->sin_addr;
+        // else
+        //     mreq.imr_interface.s_addr= INADDR_ANY;
+        // if (setsockopt(sockfd, IPPROTO_IP, IP_ADD_MEMBERSHIP, (const void *)&mreq, sizeof(mreq)) < 0) {
+        //     ff_log_net_error(NULL, AV_LOG_ERROR, "setsockopt(IP_ADD_MEMBERSHIP)");
+        //     return -1;
+        // }
     }
 #endif
 #if HAVE_STRUCT_IPV6_MREQ && defined(IPPROTO_IPV6)
@@ -211,17 +211,17 @@ static int udp_leave_multicast_group(int sockfd, struct sockaddr *addr,struct so
 {
 #ifdef IP_DROP_MEMBERSHIP
     if (addr->sa_family == AF_INET) {
-        struct ip_mreq mreq;
+        // struct ip_mreq mreq;
 
-        mreq.imr_multiaddr.s_addr = ((struct sockaddr_in *)addr)->sin_addr.s_addr;
-        if (local_addr)
-            mreq.imr_interface= ((struct sockaddr_in *)local_addr)->sin_addr;
-        else
-            mreq.imr_interface.s_addr= INADDR_ANY;
-        if (setsockopt(sockfd, IPPROTO_IP, IP_DROP_MEMBERSHIP, (const void *)&mreq, sizeof(mreq)) < 0) {
-            ff_log_net_error(NULL, AV_LOG_ERROR, "setsockopt(IP_DROP_MEMBERSHIP)");
-            return -1;
-        }
+        // mreq.imr_multiaddr.s_addr = ((struct sockaddr_in *)addr)->sin_addr.s_addr;
+        // if (local_addr)
+        //     mreq.imr_interface= ((struct sockaddr_in *)local_addr)->sin_addr;
+        // else
+        //     mreq.imr_interface.s_addr= INADDR_ANY;
+        // if (setsockopt(sockfd, IPPROTO_IP, IP_DROP_MEMBERSHIP, (const void *)&mreq, sizeof(mreq)) < 0) {
+        //     ff_log_net_error(NULL, AV_LOG_ERROR, "setsockopt(IP_DROP_MEMBERSHIP)");
+        //     return -1;
+        // }
     }
 #endif
 #if HAVE_STRUCT_IPV6_MREQ && defined(IPPROTO_IPV6)
@@ -287,12 +287,12 @@ static int udp_set_multicast_sources(URLContext *h,
             return AVERROR(EINVAL);
         }
 
-        mreqs.imr_multiaddr.s_addr = ((struct sockaddr_in *)addr)->sin_addr.s_addr;
-        if (local_addr)
-            mreqs.imr_interface= ((struct sockaddr_in *)local_addr)->sin_addr;
-        else
-            mreqs.imr_interface.s_addr= INADDR_ANY;
-        mreqs.imr_sourceaddr.s_addr = ((struct sockaddr_in *)&sources[i])->sin_addr.s_addr;
+        // mreqs.imr_multiaddr.s_addr = ((struct sockaddr_in *)addr)->sin_addr.s_addr;
+        // if (local_addr)
+        //     mreqs.imr_interface= ((struct sockaddr_in *)local_addr)->sin_addr;
+        // else
+        //     mreqs.imr_interface.s_addr= INADDR_ANY;
+        // mreqs.imr_sourceaddr.s_addr = ((struct sockaddr_in *)&sources[i])->sin_addr.s_addr;
 
         if (setsockopt(sockfd, IPPROTO_IP,
                        include ? IP_ADD_SOURCE_MEMBERSHIP : IP_BLOCK_SOURCE,
